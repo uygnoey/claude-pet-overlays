@@ -9,8 +9,7 @@
       "name": "claude-pet-overlays",
       "source": "./",
       "description": "Native fullscreen Claude Code overlay with Claude Pet animations and token status",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }
-

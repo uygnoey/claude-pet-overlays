@@ -13,11 +13,9 @@ fi
 
 case "$EVENT" in
   ask)
-    MESSAGE="${CLAUDE_PET_OVERLAY_MESSAGE:-Claude is waiting for your answer}"
     ;;
   *)
     EVENT="stop"
-    MESSAGE="${CLAUDE_PET_OVERLAY_MESSAGE:-Claude is ready for input}"
     ;;
 esac
 
@@ -27,12 +25,11 @@ if [[ ! -x "$BIN" ]]; then
   fi
 fi
 
-nohup "$BIN" \
-  --root "$ROOT" \
-  --event "$EVENT" \
-  --message "$MESSAGE" \
-  --timeout "$TIMEOUT" \
-  >>"$LOG" 2>&1 &
+CMD=("$BIN" --root "$ROOT" --event "$EVENT" --timeout "$TIMEOUT")
+if [[ -n "${CLAUDE_PET_OVERLAY_MESSAGE:-}" ]]; then
+  CMD+=(--message "$CLAUDE_PET_OVERLAY_MESSAGE")
+fi
+
+nohup "${CMD[@]}" >>"$LOG" 2>&1 &
 
 exit 0
-

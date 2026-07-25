@@ -1,6 +1,6 @@
 {
   "name": "claude-pet-overlays",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Native fullscreen Claude Code overlay with Claude Pet animations and token status",
   "author": {
     "name": "uygnoey"
@@ -13,7 +13,8 @@
     "overlay",
     "macos",
     "appkit",
-    "claude-pet"
+    "claude-pet",
+    "korean",
+    "spanish"
   ]
 }
-

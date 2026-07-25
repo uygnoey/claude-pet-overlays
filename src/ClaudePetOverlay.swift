@@ -5,13 +5,13 @@ import Darwin
 private struct Arguments {
     var root: String
     var event: String
-    var message: String
+    var message: String?
     var timeout: TimeInterval
 
     static func parse() -> Arguments {
         var root = FileManager.default.currentDirectoryPath
         var event = "stop"
-        var message = "Claude is ready for input"
+        var message: String?
         var timeout: TimeInterval = 18
 
         var index = 1
@@ -38,6 +38,249 @@ private struct Arguments {
         }
 
         return Arguments(root: root, event: event, message: message, timeout: timeout)
+    }
+}
+
+private enum Language: String {
+    case en
+    case ko
+    case es
+
+    static func current() -> Language {
+        let env = ProcessInfo.processInfo.environment
+        for key in ["CLAUDE_PET_OVERLAY_LANG", "CLAUDE_PET_LANG"] {
+            if let language = normalized(env[key]) {
+                return language
+            }
+        }
+
+        let configPath = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".claude_pet.json")
+        if let data = try? Data(contentsOf: configPath),
+           let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+           let language = normalized(object["lang"] as? String) {
+            return language
+        }
+
+        for identifier in Locale.preferredLanguages {
+            if let language = normalized(identifier) {
+                return language
+            }
+        }
+
+        return .en
+    }
+
+    private static func normalized(_ raw: String?) -> Language? {
+        guard let raw else { return nil }
+        let value = raw
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+            .replacingOccurrences(of: "_", with: "-")
+        if value.hasPrefix("ko") || value == "kr" || value == "korean" || value == "한국어" {
+            return .ko
+        }
+        if value.hasPrefix("es") || value == "spanish" || value == "espanol" || value == "español" {
+            return .es
+        }
+        if value.hasPrefix("en") || value == "english" {
+            return .en
+        }
+        return nil
+    }
+}
+
+private enum L {
+    static let language = Language.current()
+
+    static func defaultMessage(event: String) -> String {
+        switch (language, event) {
+        case (.ko, "ask"):
+            return "Claude가 답변을 기다리고 있습니다"
+        case (.es, "ask"):
+            return "Claude espera tu respuesta"
+        case (_, "ask"):
+            return "Claude is waiting for your answer"
+        case (.ko, _):
+            return "Claude가 입력을 받을 준비가 됐습니다"
+        case (.es, _):
+            return "Claude está listo para recibir texto"
+        case (.en, _):
+            return "Claude is ready for input"
+        }
+    }
+
+    static var session: String {
+        switch language {
+        case .ko: return "세션"
+        case .es: return "Sesión"
+        case .en: return "Session"
+        }
+    }
+
+    static var weekly: String {
+        switch language {
+        case .ko: return "주간"
+        case .es: return "Semanal"
+        case .en: return "Weekly"
+        }
+    }
+
+    static var credit: String {
+        switch language {
+        case .ko: return "크레딧"
+        case .es: return "Crédito"
+        case .en: return "Credit"
+        }
+    }
+
+    static var used: String {
+        switch language {
+        case .ko: return "사용"
+        case .es: return "usado"
+        case .en: return "used"
+        }
+    }
+
+    static var serverValue: String {
+        switch language {
+        case .ko: return "서버 값"
+        case .es: return "valor del servidor"
+        case .en: return "server value"
+        }
+    }
+
+    static func leftDetail(_ tokens: String) -> String {
+        switch language {
+        case .ko: return "\(tokens) 남음"
+        case .es: return "\(tokens) restantes"
+        case .en: return "\(tokens) left"
+        }
+    }
+
+    static var noLogsTitle: String {
+        switch language {
+        case .ko: return "아직 Claude Code 사용 로그가 없습니다."
+        case .es: return "Aún no hay registros de uso de Claude Code."
+        case .en: return "No Claude Code usage logs found yet."
+        }
+    }
+
+    static var noLogsBody: String {
+        switch language {
+        case .ko: return "Claude Code를 사용하면 여기에 토큰 게이지가 표시됩니다."
+        case .es: return "Cuando uses Claude Code, aquí aparecerán los medidores de tokens."
+        case .en: return "Start using Claude Code and this overlay will show token gauges here."
+        }
+    }
+
+    static func statusTitle(event: String, maxPct: Double) -> String {
+        if maxPct >= 85 {
+            switch language {
+            case .ko: return "Claude Pet: 토큰 한도가 빠듯합니다"
+            case .es: return "Claude Pet: límite de tokens ajustado"
+            case .en: return "Claude Pet: token limit is tight"
+            }
+        }
+        if maxPct >= 50 {
+            switch language {
+            case .ko: return "Claude Pet: 사용량이 올라가고 있습니다"
+            case .es: return "Claude Pet: el uso está subiendo"
+            case .en: return "Claude Pet: usage is warming up"
+            }
+        }
+        if event == "ask" {
+            switch language {
+            case .ko: return "Claude Pet: 답변이 필요합니다"
+            case .es: return "Claude Pet: se necesita respuesta"
+            case .en: return "Claude Pet: answer needed"
+            }
+        }
+        switch language {
+        case .ko: return "Claude Pet: 준비됨"
+        case .es: return "Claude Pet: listo"
+        case .en: return "Claude Pet: ready"
+        }
+    }
+
+    static var dismissHint: String {
+        switch language {
+        case .ko: return "클릭하거나 아무 키나 누르거나 기다리면 닫힙니다."
+        case .es: return "Haz clic, pulsa una tecla o espera para cerrar."
+        case .en: return "Click, press any key, or wait to dismiss."
+        }
+    }
+
+    static var exactFooter: String {
+        switch language {
+        case .ko: return "Claude Code 정확 모드입니다. \(dismissHint)"
+        case .es: return "Modo exacto de Claude Code. \(dismissHint)"
+        case .en: return "Exact mode from Claude Code. \(dismissHint)"
+        }
+    }
+
+    static func activityFooter(_ elapsed: String) -> String {
+        switch language {
+        case .ko: return "마지막 Claude Code 활동: \(elapsed) 전. \(dismissHint)"
+        case .es: return "Última actividad de Claude Code hace \(elapsed). \(dismissHint)"
+        case .en: return "Last Claude Code activity \(elapsed) ago. \(dismissHint)"
+        }
+    }
+
+    static func resetText(days: Int, hours: Int, minutes: Int) -> String {
+        if days > 0 {
+            switch language {
+            case .ko: return " - \(days)일 \(hours)시간 후 리셋"
+            case .es: return " - reinicia en \(days)d \(hours)h"
+            case .en: return " - reset in \(days)d \(hours)h"
+            }
+        }
+        if hours > 0 {
+            switch language {
+            case .ko: return " - \(hours)시간 \(minutes)분 후 리셋"
+            case .es: return " - reinicia en \(hours)h \(minutes)m"
+            case .en: return " - reset in \(hours)h \(minutes)m"
+            }
+        }
+        switch language {
+        case .ko: return " - \(max(1, minutes))분 후 리셋"
+        case .es: return " - reinicia en \(max(1, minutes))m"
+        case .en: return " - reset in \(max(1, minutes))m"
+        }
+    }
+
+    static func relative(seconds: Int) -> String {
+        if seconds < 60 {
+            switch language {
+            case .ko: return "\(seconds)초"
+            case .es: return "\(seconds)s"
+            case .en: return "\(seconds)s"
+            }
+        }
+        let minutes = seconds / 60
+        if minutes < 60 {
+            switch language {
+            case .ko: return "\(minutes)분"
+            case .es: return "\(minutes)m"
+            case .en: return "\(minutes)m"
+            }
+        }
+        let hours = minutes / 60
+        if hours < 24 {
+            switch language {
+            case .ko: return "\(hours)시간"
+            case .es: return "\(hours)h"
+            case .en: return "\(hours)h"
+            }
+        }
+        switch language {
+        case .ko: return "\(hours / 24)일"
+        case .es: return "\(hours / 24)d"
+        case .en: return "\(hours / 24)d"
+        }
+    }
+
+    static func isStandardGaugeTitle(_ title: String) -> Bool {
+        [session, weekly, credit, "Session", "Weekly", "Credit"].contains(title)
     }
 }
 
@@ -148,10 +391,10 @@ private enum TokenScanner {
             return UsageSnapshot(
                 gauges: exact,
                 maxPct: exact.map(\.pct).max() ?? 0,
-                modelKeyword: exact.first(where: { !["Session", "Weekly", "Credit"].contains($0.title) })?.title.lowercased() ?? "opus",
+                modelKeyword: exact.first(where: { !L.isStandardGaugeTitle($0.title) })?.title.lowercased() ?? "opus",
                 lastActivity: nil,
                 hasData: true,
-                source: "Exact mode"
+                source: "exact"
             )
         }
 
@@ -180,8 +423,8 @@ private enum TokenScanner {
         }
 
         let gauges = [
-            localGauge(title: "Session", used: session.used, limit: config.sessionLimit, reset: session.reset),
-            localGauge(title: "Weekly", used: weeklyUsed, limit: config.weeklyLimit, reset: weeklyReset),
+            localGauge(title: L.session, used: session.used, limit: config.sessionLimit, reset: session.reset),
+            localGauge(title: L.weekly, used: weeklyUsed, limit: config.weeklyLimit, reset: weeklyReset),
             localGauge(title: modelKeyword.capitalized, used: modelUsed, limit: config.modelLimit, reset: weeklyReset)
         ]
 
@@ -191,14 +434,14 @@ private enum TokenScanner {
             modelKeyword: modelKeyword,
             lastActivity: entries.last?.date,
             hasData: !entries.isEmpty,
-            source: "Log estimate"
+            source: "logs"
         )
     }
 
     private static func localGauge(title: String, used: Double, limit: Double, reset: Date?) -> Gauge {
         let pct = limit > 0 ? min(100, max(0, used / limit * 100)) : 0
         let left = max(0, limit - used)
-        let detail = "\(formatTokens(left)) left" + resetText(reset)
+        let detail = L.leftDetail(formatTokens(left)) + resetText(reset)
         return Gauge(title: title, pct: pct, detail: detail)
     }
 
@@ -310,17 +553,17 @@ private enum TokenScanner {
                 let pct = min(100, max(0, percent))
 
                 if lowerKind.contains("session") || lowerKind.contains("five_hour") {
-                    rows.append((0, Gauge(title: "Session", pct: pct, detail: exactDetail(reset: reset))))
+                    rows.append((0, Gauge(title: L.session, pct: pct, detail: exactDetail(reset: reset))))
                 } else if lowerKind.contains("weekly") || lowerKind.contains("seven") {
                     if lowerKind.contains("scoped") || lowerKind.contains("model") {
                         if let title = scopedModelTitle(limit) {
                             rows.append((2, Gauge(title: title, pct: pct, detail: exactDetail(reset: reset))))
                         }
                     } else {
-                        rows.append((1, Gauge(title: "Weekly", pct: pct, detail: exactDetail(reset: reset))))
+                        rows.append((1, Gauge(title: L.weekly, pct: pct, detail: exactDetail(reset: reset))))
                     }
                 } else if lowerKind.contains("extra") || lowerKind.contains("credit") {
-                    rows.append((9, Gauge(title: "Credit", pct: pct, detail: exactDetail(reset: reset))))
+                    rows.append((9, Gauge(title: L.credit, pct: pct, detail: exactDetail(reset: reset))))
                 }
             }
         }
@@ -329,7 +572,7 @@ private enum TokenScanner {
            let enabled = extra["is_enabled"] as? Bool,
            enabled,
            let percent = number(extra["utilization"]) {
-            rows.append((9, Gauge(title: "Credit", pct: min(100, max(0, percent)), detail: exactDetail(reset: parseReset(extra["resets_at"])))))
+            rows.append((9, Gauge(title: L.credit, pct: min(100, max(0, percent)), detail: exactDetail(reset: parseReset(extra["resets_at"])))))
         }
 
         if rows.isEmpty {
@@ -383,18 +626,18 @@ private enum TokenScanner {
                 let order: Int
 
                 if lowerHint.contains("session") || lowerHint.contains("five_hour") {
-                    title = "Session"
+                    title = L.session
                     order = 0
                 } else if lowerHint.contains("weekly") || lowerHint.contains("seven_day") {
                     if let family = premiumFamilies.first(where: { lowerHint.contains($0) }) {
                         title = family.capitalized
                         order = 2
                     } else {
-                        title = "Weekly"
+                        title = L.weekly
                         order = 1
                     }
                 } else if lowerHint.contains("credit") || lowerHint.contains("extra") {
-                    title = "Credit"
+                    title = L.credit
                     order = 9
                 } else {
                     title = hint
@@ -425,7 +668,7 @@ private enum TokenScanner {
     }
 
     private static func exactDetail(reset: Date?) -> String {
-        var detail = "server value"
+        var detail = L.serverValue
         let reset = resetText(reset)
         if !reset.isEmpty {
             detail += reset
@@ -583,7 +826,7 @@ private final class OverlayView: NSView {
     var frameIndex = 0
     var message = ""
     var event = "stop"
-    var snapshot = UsageSnapshot(gauges: [], maxPct: 0, modelKeyword: "opus", lastActivity: nil, hasData: false, source: "Log estimate")
+    var snapshot = UsageSnapshot(gauges: [], maxPct: 0, modelKeyword: "opus", lastActivity: nil, hasData: false, source: "logs")
     var dismiss: (() -> Void)?
 
     override var acceptsFirstResponder: Bool {
@@ -638,8 +881,8 @@ private final class OverlayView: NSView {
         let gaugeWidth = max(300, panel.width - petSize - 150)
         var gaugeY = panel.maxY - 152
         if snapshot.gauges.isEmpty {
-            drawText("No Claude Code usage logs found yet.", in: NSRect(x: leftX, y: gaugeY, width: gaugeWidth, height: 24), size: 15, weight: .medium, color: color(0.84, 0.85, 0.89, 1))
-            drawText("Start using Claude Code and this overlay will show token gauges here.", in: NSRect(x: leftX, y: gaugeY - 28, width: gaugeWidth, height: 24), size: 13, weight: .regular, color: color(0.58, 0.60, 0.66, 1))
+            drawText(L.noLogsTitle, in: NSRect(x: leftX, y: gaugeY, width: gaugeWidth, height: 24), size: 15, weight: .medium, color: color(0.84, 0.85, 0.89, 1))
+            drawText(L.noLogsBody, in: NSRect(x: leftX, y: gaugeY - 28, width: gaugeWidth, height: 24), size: 13, weight: .regular, color: color(0.58, 0.60, 0.66, 1))
         } else {
             for gauge in snapshot.gauges {
                 drawGauge(gauge, in: NSRect(x: leftX, y: gaugeY, width: gaugeWidth, height: 62))
@@ -678,7 +921,7 @@ private final class OverlayView: NSView {
 
     private func drawGauge(_ gauge: Gauge, in rect: NSRect) {
         let title = gauge.title
-        let value = "\(formatPct(gauge.pct)) used"
+        let value = "\(formatPct(gauge.pct)) \(L.used)"
         let detail = gauge.detail
 
         drawText(title, in: NSRect(x: rect.minX, y: rect.maxY - 22, width: 150, height: 20), size: 17, weight: .semibold, color: .white)
@@ -698,26 +941,17 @@ private final class OverlayView: NSView {
     }
 
     private func statusTitle() -> String {
-        if snapshot.maxPct >= 85 {
-            return "Claude Pet: token limit is tight"
-        }
-        if snapshot.maxPct >= 50 {
-            return "Claude Pet: usage is warming up"
-        }
-        if event == "ask" {
-            return "Claude Pet: answer needed"
-        }
-        return "Claude Pet: ready"
+        L.statusTitle(event: event, maxPct: snapshot.maxPct)
     }
 
     private func footerText() -> String {
-        if snapshot.source == "Exact mode" {
-            return "Exact mode from Claude Code. Click, press any key, or wait to dismiss."
+        if snapshot.source == "exact" {
+            return L.exactFooter
         }
         guard let last = snapshot.lastActivity else {
-            return "Click, press any key, or wait to dismiss."
+            return L.dismissHint
         }
-        return "Last Claude Code activity \(relativeTime(last)) ago. Click, press any key, or wait to dismiss."
+        return L.activityFooter(relativeTime(last))
     }
 }
 
@@ -760,7 +994,7 @@ private final class AppDelegate: NSObject, NSApplicationDelegate {
             let view = OverlayView(frame: screen.frame)
             view.showsContent = screen == mainScreen
             view.frames = loadFrames(root: args.root, state: animationState)
-            view.message = args.message
+            view.message = args.message ?? L.defaultMessage(event: args.event)
             view.event = args.event
             view.snapshot = snapshot
             view.dismiss = { [weak self] in
@@ -923,29 +1157,12 @@ private func resetText(_ date: Date?) -> String {
     let minutes = Int(remaining / 60)
     let hours = minutes / 60
     let days = hours / 24
-    if days > 0 {
-        return " - reset in \(days)d \(hours % 24)h"
-    }
-    if hours > 0 {
-        return " - reset in \(hours)h \(minutes % 60)m"
-    }
-    return " - reset in \(max(1, minutes))m"
+    return L.resetText(days: days, hours: hours % 24, minutes: minutes % 60)
 }
 
 private func relativeTime(_ date: Date) -> String {
     let seconds = max(0, Int(Date().timeIntervalSince(date)))
-    if seconds < 60 {
-        return "\(seconds)s"
-    }
-    let minutes = seconds / 60
-    if minutes < 60 {
-        return "\(minutes)m"
-    }
-    let hours = minutes / 60
-    if hours < 24 {
-        return "\(hours)h"
-    }
-    return "\(hours / 24)d"
+    return L.relative(seconds: seconds)
 }
 
 private let args = Arguments.parse()

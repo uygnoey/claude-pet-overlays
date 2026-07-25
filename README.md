@@ -8,6 +8,14 @@ The overlay centers Patch from `uygnoey/claude-pet` with live token gauges. Patc
 - 50-84%: waiting animation
 - 85% and above: failed/panic animation
 
+The overlay UI supports English, Korean, and Spanish. It auto-detects `~/.claude_pet.json` language settings and macOS preferred languages. You can force one:
+
+```bash
+CLAUDE_PET_OVERLAY_LANG=ko bash scripts/notify.sh stop
+CLAUDE_PET_OVERLAY_LANG=en bash scripts/notify.sh stop
+CLAUDE_PET_OVERLAY_LANG=es bash scripts/notify.sh stop
+```
+
 ## Install
 
 ```bash
