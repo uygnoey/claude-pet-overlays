@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "source": "https://github.com/uygnoey/claude-pet",
+  "frameSize": {
+    "width": 192,
+    "height": 208
+  },
+  "states": {
+    "failed": [
+      "00.png",
+      "01.png",
+      "02.png",
+      "03.png",
+      "04.png",
+      "05.png",
+      "06.png",
+      "07.png"
+    ],
+    "idle": [
+      "00.png",
+      "01.png",
+      "02.png",
+      "03.png",
+      "04.png",
+      "05.png"
+    ],
+    "jumping": [
+      "00.png",
+      "01.png",
+      "02.png",
+      "03.png",
+      "04.png"
+    ],
+    "review": [
+      "00.png",
+      "01.png",
+      "02.png",
+      "03.png",
+      "04.png",
+      "05.png"
+    ],
+    "running": [
+      "00.png",
+      "01.png",
+      "02.png",
+      "03.png",
+      "04.png",
+      "05.png"
+    ],
+    "running-left": [
+      "00.png",
+      "01.png",
+      "02.png",
+      "03.png",
+      "04.png",
+      "05.png",
+      "06.png",
+      "07.png"
+    ],
+    "running-right": [
+      "00.png",
+      "01.png",
+      "02.png",
+      "03.png",
+      "04.png",
+      "05.png",
+      "06.png",
+      "07.png"
+    ],
+    "waiting": [
+      "00.png",
+      "01.png",
+      "02.png",
+      "03.png",
+      "04.png",
+      "05.png"
+    ],
+    "waving": [
+      "00.png",
+      "01.png",
+      "02.png",
+      "03.png"
+    ]
+  }
+}

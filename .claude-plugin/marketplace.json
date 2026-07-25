@@ -1,0 +1,16 @@
+{
+  "name": "uygnoey",
+  "description": "Claude Pet overlays for Claude Code",
+  "owner": {
+    "name": "uygnoey"
+  },
+  "plugins": [
+    {
+      "name": "claude-pet-overlays",
+      "source": "./",
+      "description": "Native fullscreen Claude Code overlay with Claude Pet animations and token status",
+      "version": "0.1.0"
+    }
+  ]
+}
+

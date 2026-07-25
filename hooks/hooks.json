@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh\" stop"
+          }
+        ],
+        "description": "Show Claude Pet overlay when Claude Code finishes responding",
+        "id": "stop:claude-pet-overlays"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh\" ask"
+          }
+        ],
+        "description": "Show Claude Pet overlay when Claude Code asks for input",
+        "id": "pre:ask-user:claude-pet-overlays"
+      }
+    ]
+  }
+}
+
