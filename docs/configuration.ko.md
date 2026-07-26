@@ -111,8 +111,8 @@ Claude Pet Overlays는 환경 변수, 기존 Claude Pet의 `~/.claude_pet.json` 
 
 | 애니메이션 | 간격 |
 | --- | --- |
-| `failed` | `0.09s` |
-| `waiting` | `0.13s` |
-| `review` | `0.16s` |
-| `waving` | `0.18s` |
-| 기타 폴백 상태 | `0.20s` |
+| `failed` | `0.16s` |
+| `waiting` | `0.20s` |
+| `review` | `0.24s` |
+| `waving` | `0.26s` |
+| 기타 폴백 상태 | `0.28s` |

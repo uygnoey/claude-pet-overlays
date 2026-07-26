@@ -111,8 +111,8 @@ Los tiempos de fotograma son algo más rápidos en los estados urgentes:
 
 | Animación | Intervalo |
 | --- | --- |
-| `failed` | `0.09s` |
-| `waiting` | `0.13s` |
-| `review` | `0.16s` |
-| `waving` | `0.18s` |
-| Otros estados de reserva | `0.20s` |
+| `failed` | `0.16s` |
+| `waiting` | `0.20s` |
+| `review` | `0.24s` |
+| `waving` | `0.26s` |
+| Otros estados de reserva | `0.28s` |

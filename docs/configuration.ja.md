@@ -111,8 +111,8 @@ Claude Pet Overlays は、環境変数、Claude Pet の既存の `~/.claude_pet.
 
 | アニメーション | 間隔 |
 | --- | --- |
-| `failed` | `0.09s` |
-| `waiting` | `0.13s` |
-| `review` | `0.16s` |
-| `waving` | `0.18s` |
-| その他のフォールバック状態 | `0.20s` |
+| `failed` | `0.16s` |
+| `waiting` | `0.20s` |
+| `review` | `0.24s` |
+| `waving` | `0.26s` |
+| その他のフォールバック状態 | `0.28s` |

@@ -111,8 +111,8 @@ Frame timing is slightly faster for urgent states:
 
 | Animation | Interval |
 | --- | --- |
-| `failed` | `0.09s` |
-| `waiting` | `0.13s` |
-| `review` | `0.16s` |
-| `waving` | `0.18s` |
-| Other fallback states | `0.20s` |
+| `failed` | `0.16s` |
+| `waiting` | `0.20s` |
+| `review` | `0.24s` |
+| `waving` | `0.26s` |
+| Other fallback states | `0.28s` |

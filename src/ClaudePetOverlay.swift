@@ -820,6 +820,11 @@ private final class JSONLineDecoder {
     }
 }
 
+private final class OverlayWindow: NSWindow {
+    override var canBecomeKey: Bool { true }
+    override var canBecomeMain: Bool { true }
+}
+
 private final class OverlayView: NSView {
     var showsContent = false
     var frames: [NSImage] = []
@@ -979,7 +984,7 @@ private final class AppDelegate: NSObject, NSApplicationDelegate {
         let mainScreen = NSScreen.main ?? screens.first
 
         for screen in screens {
-            let window = NSWindow(
+            let window = OverlayWindow(
                 contentRect: screen.frame,
                 styleMask: .borderless,
                 backing: .buffered,
@@ -1001,8 +1006,12 @@ private final class AppDelegate: NSObject, NSApplicationDelegate {
                 self?.dismiss()
             }
             window.contentView = view
-            window.makeKeyAndOrderFront(nil)
-            window.makeFirstResponder(view)
+            if screen == mainScreen {
+                window.makeKeyAndOrderFront(nil)
+                window.makeFirstResponder(view)
+            } else {
+                window.orderFront(nil)
+            }
 
             windows.append(window)
             views.append(view)
@@ -1067,15 +1076,15 @@ private func chooseAnimation(event: String, maxPct: Double) -> String {
 private func interval(for state: String) -> TimeInterval {
     switch state {
     case "failed":
-        return 0.09
-    case "waiting":
-        return 0.13
-    case "review":
         return 0.16
-    case "waving":
-        return 0.18
-    default:
+    case "waiting":
         return 0.20
+    case "review":
+        return 0.24
+    case "waving":
+        return 0.26
+    default:
+        return 0.28
     }
 }
 
