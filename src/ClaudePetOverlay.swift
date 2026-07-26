@@ -95,17 +95,17 @@ private enum L {
     static func defaultMessage(event: String) -> String {
         switch (language, event) {
         case (.ko, "ask"):
-            return "Claude가 답변을 기다리고 있습니다"
+            return "답을 입력하면 계속 진행합니다"
         case (.es, "ask"):
-            return "Claude espera tu respuesta"
+            return "Responde para continuar"
         case (_, "ask"):
-            return "Claude is waiting for your answer"
+            return "Reply to keep going"
         case (.ko, _):
-            return "Claude가 입력을 받을 준비가 됐습니다"
+            return "이어서 지시를 입력하세요"
         case (.es, _):
-            return "Claude está listo para recibir texto"
+            return "Escribe tu próxima instrucción para continuar"
         case (.en, _):
-            return "Claude is ready for input"
+            return "Add your next instruction to continue"
         }
     }
 
@@ -176,15 +176,15 @@ private enum L {
     static func statusTitle(event: String) -> String {
         if event == "ask" {
             switch language {
-            case .ko: return "답변이 필요합니다"
-            case .es: return "Se necesita respuesta"
-            case .en: return "Answer needed"
+            case .ko: return "Claude가 답변을 기다리고 있습니다"
+            case .es: return "Claude espera tu respuesta"
+            case .en: return "Claude is waiting for your answer"
             }
         }
         switch language {
-        case .ko: return "준비됨"
-        case .es: return "Listo"
-        case .en: return "Ready"
+        case .ko: return "Claude가 모두 완료했습니다"
+        case .es: return "Claude ha terminado"
+        case .en: return "Claude is all done"
         }
     }
 
