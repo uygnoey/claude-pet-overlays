@@ -173,21 +173,7 @@ private enum L {
         }
     }
 
-    static func statusTitle(event: String, maxPct: Double) -> String {
-        if maxPct >= 85 {
-            switch language {
-            case .ko: return "Claude Pet: 토큰 한도가 빠듯합니다"
-            case .es: return "Claude Pet: límite de tokens ajustado"
-            case .en: return "Claude Pet: token limit is tight"
-            }
-        }
-        if maxPct >= 50 {
-            switch language {
-            case .ko: return "Claude Pet: 사용량이 올라가고 있습니다"
-            case .es: return "Claude Pet: el uso está subiendo"
-            case .en: return "Claude Pet: usage is warming up"
-            }
-        }
+    static func statusTitle(event: String) -> String {
         if event == "ask" {
             switch language {
             case .ko: return "Claude Pet: 답변이 필요합니다"
@@ -946,7 +932,7 @@ private final class OverlayView: NSView {
     }
 
     private func statusTitle() -> String {
-        L.statusTitle(event: event, maxPct: snapshot.maxPct)
+        L.statusTitle(event: event)
     }
 
     private func footerText() -> String {
