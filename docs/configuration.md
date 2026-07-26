@@ -105,7 +105,7 @@ Animation selection is based on the highest visible gauge percentage:
 | `85%` or higher | `failed` |
 | `50%` to `84%` | `waiting` |
 | `ask` event below `50%` | `review` |
-| `stop` event below `50%` | `waving` |
+| `stop` event below `50%` | `jumping` |
 
 Frame timing is slightly faster for urgent states:
 
@@ -115,4 +115,5 @@ Frame timing is slightly faster for urgent states:
 | `waiting` | `0.34s` |
 | `review` | `0.38s` |
 | `waving` | `0.42s` |
+| `jumping` | `0.28s` |
 | Other fallback states | `0.46s` |

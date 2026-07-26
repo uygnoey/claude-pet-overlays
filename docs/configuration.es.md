@@ -105,7 +105,7 @@ La animación se selecciona según el porcentaje del medidor más alto:
 | `85%` o más | `failed` |
 | `50%` a `84%` | `waiting` |
 | Evento `ask` por debajo del `50%` | `review` |
-| Evento `stop` por debajo del `50%` | `waving` |
+| Evento `stop` por debajo del `50%` | `jumping` |
 
 Los tiempos de fotograma son algo más rápidos en los estados urgentes:
 
@@ -115,4 +115,5 @@ Los tiempos de fotograma son algo más rápidos en los estados urgentes:
 | `waiting` | `0.34s` |
 | `review` | `0.38s` |
 | `waving` | `0.42s` |
+| `jumping` | `0.28s` |
 | Otros estados de reserva | `0.46s` |

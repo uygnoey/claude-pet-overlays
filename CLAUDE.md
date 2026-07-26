@@ -33,7 +33,7 @@ Flow: **Claude Code hook → `scripts/notify.sh` → (first run: `scripts/build.
 - `TokenScanner.snapshot()` — two-tier usage:
   1. **exact**: OAuth token from `~/.claude/.credentials.json` or macOS Keychain (`/usr/bin/security`) → GET `https://api.anthropic.com/api/oauth/usage`.
   2. **logs fallback**: scans `~/.claude/projects` + `~/.config/claude/projects` `.jsonl`, dedupes by message/request id, weights tokens (output ×5, cache-create ×1.25, cache-read ×0.1).
-- `chooseAnimation` — by max gauge %: `failed` ≥85, `waiting` ≥50, `review` (ask), `waving` (stop).
+- `chooseAnimation` — by max gauge %: `failed` ≥85, `waiting` ≥50, `review` (ask), `jumping` (stop).
 - `AppDelegate` — one borderless screen-saver-level window per display; active panel only on the main display; dismiss on click/key/timeout (default 18s).
 
 ## Build & test

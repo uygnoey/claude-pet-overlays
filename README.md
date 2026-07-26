@@ -6,6 +6,12 @@ Native macOS Claude Code plugin that shows a fullscreen Claude Pet overlay when 
 
 The overlay builds a small Swift/AppKit binary on first use, displays Patch animation frames from `uygnoey/claude-pet`, and adds token gauges from Claude Code usage data.
 
+## Demo
+
+![Claude Pet overlay demo](screenshots/overlay-demo.gif)
+
+When Claude Code finishes a turn the pet does a happy **jump**; when it asks a question the pet plays the **review** animation.
+
 ## What It Shows
 
 - A fullscreen overlay on every display, with the active panel on the main display

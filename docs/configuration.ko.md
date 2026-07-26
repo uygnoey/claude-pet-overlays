@@ -105,7 +105,7 @@ Claude Pet Overlays는 환경 변수, 기존 Claude Pet의 `~/.claude_pet.json` 
 | `85%` 이상 | `failed` |
 | `50%` ~ `84%` | `waiting` |
 | `50%` 미만의 `ask` 이벤트 | `review` |
-| `50%` 미만의 `stop` 이벤트 | `waving` |
+| `50%` 미만의 `stop` 이벤트 | `jumping` |
 
 급한 상태일수록 프레임 간격이 조금 더 빠릅니다.
 
@@ -115,4 +115,5 @@ Claude Pet Overlays는 환경 변수, 기존 Claude Pet의 `~/.claude_pet.json` 
 | `waiting` | `0.34s` |
 | `review` | `0.38s` |
 | `waving` | `0.42s` |
+| `jumping` | `0.28s` |
 | 기타 폴백 상태 | `0.46s` |

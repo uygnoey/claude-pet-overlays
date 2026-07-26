@@ -105,7 +105,7 @@ Claude Pet Overlays は、環境変数、Claude Pet の既存の `~/.claude_pet.
 | `85%` 以上 | `failed` |
 | `50%` 〜 `84%` | `waiting` |
 | `50%` 未満の `ask` イベント | `review` |
-| `50%` 未満の `stop` イベント | `waving` |
+| `50%` 未満の `stop` イベント | `jumping` |
 
 緊急度の高い状態ほどフレーム間隔がやや速くなります。
 
@@ -115,4 +115,5 @@ Claude Pet Overlays は、環境変数、Claude Pet の既存の `~/.claude_pet.
 | `waiting` | `0.34s` |
 | `review` | `0.38s` |
 | `waving` | `0.42s` |
+| `jumping` | `0.28s` |
 | その他のフォールバック状態 | `0.46s` |

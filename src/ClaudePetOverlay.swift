@@ -1056,7 +1056,7 @@ private func chooseAnimation(event: String, maxPct: Double) -> String {
     if event == "ask" {
         return "review"
     }
-    return "waving"
+    return "jumping"
 }
 
 private func interval(for state: String) -> TimeInterval {
@@ -1069,6 +1069,8 @@ private func interval(for state: String) -> TimeInterval {
         return 0.38
     case "waving":
         return 0.42
+    case "jumping":
+        return 0.28
     default:
         return 0.46
     }

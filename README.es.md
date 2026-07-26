@@ -6,6 +6,12 @@ Complemento nativo de Claude Code para macOS que muestra una superposición de C
 
 La superposición compila un pequeño binario en Swift/AppKit la primera vez que se usa, muestra los fotogramas de animación de Patch de `uygnoey/claude-pet` y añade medidores de tokens a partir de los datos de uso de Claude Code.
 
+## Demostración
+
+![Demostración de la superposición de Claude Pet](screenshots/overlay-demo.gif)
+
+Cuando Claude Code termina un turno, la mascota da un **salto** de alegría; cuando hace una pregunta, reproduce la animación de **revisión** (`review`).
+
 ## Qué muestra
 
 - Una superposición a pantalla completa en cada monitor, con el panel activo en el monitor principal

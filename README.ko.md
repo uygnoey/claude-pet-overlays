@@ -6,6 +6,12 @@ Claude Code가 입력을 받을 준비가 되었거나 질문을 던질 때, 화
 
 오버레이는 처음 실행할 때 작은 Swift/AppKit 바이너리를 빌드하고, `uygnoey/claude-pet`의 Patch 애니메이션 프레임을 표시하며, Claude Code 사용량 데이터를 바탕으로 토큰 게이지를 함께 보여줍니다.
 
+## 데모
+
+![Claude Pet 오버레이 데모](screenshots/overlay-demo.gif)
+
+Claude Code가 한 턴을 끝내면 펫이 신나게 **점프(jump)** 하고, 질문을 던질 때는 **리뷰(review)** 애니메이션을 재생합니다.
+
 ## 표시 내용
 
 - 모든 디스플레이를 덮는 풀스크린 오버레이(활성 패널은 메인 디스플레이에 표시)
