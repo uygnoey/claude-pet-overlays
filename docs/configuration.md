@@ -22,7 +22,7 @@ Any event other than `ask` is normalized to `stop` by `scripts/notify.sh`.
 | `CLAUDE_PLUGIN_ROOT` | Repository root inferred from `scripts/notify.sh` | Plugin root. Claude Code normally sets this for installed plugins. |
 | `CLAUDE_PET_OVERLAY_LANG` | Auto-detected | Forces overlay language. Supported values include `en`, `ko`, and `es`. |
 | `CLAUDE_PET_LANG` | Auto-detected | Fallback language override shared with Claude Pet. |
-| `CLAUDE_PET_OVERLAY_TIMEOUT` | `18` | Seconds before the overlay dismisses itself. Set `0` to keep it open until click or key press. |
+| `CLAUDE_PET_OVERLAY_TIMEOUT` | `0` | Seconds before the overlay auto-dismisses. Default `0` keeps it open until a click or key press. Set a positive number to auto-dismiss after that many seconds. |
 | `CLAUDE_PET_OVERLAY_MESSAGE` | Event-specific default | Replaces the default overlay message. |
 
 Language detection order:
@@ -111,8 +111,8 @@ Frame timing is slightly faster for urgent states:
 
 | Animation | Interval |
 | --- | --- |
-| `failed` | `0.16s` |
-| `waiting` | `0.20s` |
-| `review` | `0.24s` |
-| `waving` | `0.26s` |
-| Other fallback states | `0.28s` |
+| `failed` | `0.30s` |
+| `waiting` | `0.34s` |
+| `review` | `0.38s` |
+| `waving` | `0.42s` |
+| Other fallback states | `0.46s` |

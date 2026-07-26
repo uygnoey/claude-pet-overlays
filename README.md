@@ -38,7 +38,7 @@ bash scripts/notify.sh stop
 bash scripts/notify.sh ask
 ```
 
-Click anywhere, press any key, or wait for the timeout to dismiss the overlay.
+Click anywhere or press any key to dismiss the overlay.
 
 ## Basic Configuration
 

@@ -22,7 +22,7 @@ Claude Pet Overlays는 환경 변수, 기존 Claude Pet의 `~/.claude_pet.json` 
 | `CLAUDE_PLUGIN_ROOT` | `scripts/notify.sh`가 추론한 저장소 루트 | 플러그인 루트. 설치된 플러그인의 경우 보통 Claude Code가 설정합니다. |
 | `CLAUDE_PET_OVERLAY_LANG` | 자동 감지 | 오버레이 언어를 강제합니다. `en`, `ko`, `es` 등을 지원합니다. |
 | `CLAUDE_PET_LANG` | 자동 감지 | Claude Pet과 공유하는 폴백 언어 재정의값. |
-| `CLAUDE_PET_OVERLAY_TIMEOUT` | `18` | 오버레이가 스스로 닫히기까지의 초. `0`으로 설정하면 클릭이나 키 입력 전까지 유지됩니다. |
+| `CLAUDE_PET_OVERLAY_TIMEOUT` | `0` | 오버레이가 자동으로 닫히기까지의 초. 기본값 `0`은 클릭이나 키 입력 전까지 유지합니다. 양수를 설정하면 그 초 뒤에 자동으로 닫힙니다. |
 | `CLAUDE_PET_OVERLAY_MESSAGE` | 이벤트별 기본값 | 기본 오버레이 메시지를 대체합니다. |
 
 언어 감지 순서:
@@ -111,8 +111,8 @@ Claude Pet Overlays는 환경 변수, 기존 Claude Pet의 `~/.claude_pet.json` 
 
 | 애니메이션 | 간격 |
 | --- | --- |
-| `failed` | `0.16s` |
-| `waiting` | `0.20s` |
-| `review` | `0.24s` |
-| `waving` | `0.26s` |
-| 기타 폴백 상태 | `0.28s` |
+| `failed` | `0.30s` |
+| `waiting` | `0.34s` |
+| `review` | `0.38s` |
+| `waving` | `0.42s` |
+| 기타 폴백 상태 | `0.46s` |

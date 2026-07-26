@@ -12,7 +12,7 @@ private struct Arguments {
         var root = FileManager.default.currentDirectoryPath
         var event = "stop"
         var message: String?
-        var timeout: TimeInterval = 18
+        var timeout: TimeInterval = 0
 
         var index = 1
         let args = CommandLine.arguments
@@ -176,23 +176,23 @@ private enum L {
     static func statusTitle(event: String) -> String {
         if event == "ask" {
             switch language {
-            case .ko: return "Claude Pet: 답변이 필요합니다"
-            case .es: return "Claude Pet: se necesita respuesta"
-            case .en: return "Claude Pet: answer needed"
+            case .ko: return "답변이 필요합니다"
+            case .es: return "Se necesita respuesta"
+            case .en: return "Answer needed"
             }
         }
         switch language {
-        case .ko: return "Claude Pet: 준비됨"
-        case .es: return "Claude Pet: listo"
-        case .en: return "Claude Pet: ready"
+        case .ko: return "준비됨"
+        case .es: return "Listo"
+        case .en: return "Ready"
         }
     }
 
     static var dismissHint: String {
         switch language {
-        case .ko: return "클릭하거나 아무 키나 누르거나 기다리면 닫힙니다."
-        case .es: return "Haz clic, pulsa una tecla o espera para cerrar."
-        case .en: return "Click, press any key, or wait to dismiss."
+        case .ko: return "클릭하거나 아무 키나 누르면 닫힙니다."
+        case .es: return "Haz clic o pulsa una tecla para cerrar."
+        case .en: return "Click or press any key to dismiss."
         }
     }
 
@@ -1062,15 +1062,15 @@ private func chooseAnimation(event: String, maxPct: Double) -> String {
 private func interval(for state: String) -> TimeInterval {
     switch state {
     case "failed":
-        return 0.16
+        return 0.30
     case "waiting":
-        return 0.20
+        return 0.34
     case "review":
-        return 0.24
+        return 0.38
     case "waving":
-        return 0.26
+        return 0.42
     default:
-        return 0.28
+        return 0.46
     }
 }
 

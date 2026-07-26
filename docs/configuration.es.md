@@ -22,7 +22,7 @@ Cualquier evento distinto de `ask` se normaliza a `stop` en `scripts/notify.sh`.
 | `CLAUDE_PLUGIN_ROOT` | Raíz del repositorio inferida por `scripts/notify.sh` | Raíz del complemento. Claude Code normalmente la define para los complementos instalados. |
 | `CLAUDE_PET_OVERLAY_LANG` | Detección automática | Fuerza el idioma de la superposición. Admite `en`, `ko` y `es`, entre otros. |
 | `CLAUDE_PET_LANG` | Detección automática | Anulación de idioma de reserva compartida con Claude Pet. |
-| `CLAUDE_PET_OVERLAY_TIMEOUT` | `18` | Segundos antes de que la superposición se cierre sola. Usa `0` para mantenerla abierta hasta un clic o una tecla. |
+| `CLAUDE_PET_OVERLAY_TIMEOUT` | `0` | Segundos antes de que la superposición se cierre sola. El valor predeterminado `0` la mantiene abierta hasta un clic o una tecla. Usa un número positivo para cerrarla automáticamente tras esos segundos. |
 | `CLAUDE_PET_OVERLAY_MESSAGE` | Predeterminado según el evento | Reemplaza el mensaje predeterminado de la superposición. |
 
 Orden de detección de idioma:
@@ -111,8 +111,8 @@ Los tiempos de fotograma son algo más rápidos en los estados urgentes:
 
 | Animación | Intervalo |
 | --- | --- |
-| `failed` | `0.16s` |
-| `waiting` | `0.20s` |
-| `review` | `0.24s` |
-| `waving` | `0.26s` |
-| Otros estados de reserva | `0.28s` |
+| `failed` | `0.30s` |
+| `waiting` | `0.34s` |
+| `review` | `0.38s` |
+| `waving` | `0.42s` |
+| Otros estados de reserva | `0.46s` |

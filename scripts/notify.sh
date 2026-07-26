@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 EVENT="${1:-stop}"
-TIMEOUT="${CLAUDE_PET_OVERLAY_TIMEOUT:-18}"
+TIMEOUT="${CLAUDE_PET_OVERLAY_TIMEOUT:-0}"
 BIN="$ROOT/bin/claude-pet-overlay"
 LOG="${TMPDIR:-/tmp}/claude-pet-overlays.log"
 

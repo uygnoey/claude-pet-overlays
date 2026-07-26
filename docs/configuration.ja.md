@@ -22,7 +22,7 @@ Claude Pet Overlays は、環境変数、Claude Pet の既存の `~/.claude_pet.
 | `CLAUDE_PLUGIN_ROOT` | `scripts/notify.sh` が推測するリポジトリルート | プラグインのルート。インストール済みプラグインでは通常 Claude Code が設定します。 |
 | `CLAUDE_PET_OVERLAY_LANG` | 自動検出 | オーバーレイの言語を強制します。`en`、`ko`、`es` などに対応します。 |
 | `CLAUDE_PET_LANG` | 自動検出 | Claude Pet と共有するフォールバックの言語上書き値。 |
-| `CLAUDE_PET_OVERLAY_TIMEOUT` | `18` | オーバーレイが自動で閉じるまでの秒数。`0` にするとクリックまたはキー入力まで表示し続けます。 |
+| `CLAUDE_PET_OVERLAY_TIMEOUT` | `0` | オーバーレイが自動で閉じるまでの秒数。既定値 `0` はクリックまたはキー入力まで表示し続けます。正の値を設定すると、その秒数後に自動で閉じます。 |
 | `CLAUDE_PET_OVERLAY_MESSAGE` | イベントごとのデフォルト | デフォルトのオーバーレイメッセージを置き換えます。 |
 
 言語検出の順序:
@@ -111,8 +111,8 @@ Claude Pet Overlays は、環境変数、Claude Pet の既存の `~/.claude_pet.
 
 | アニメーション | 間隔 |
 | --- | --- |
-| `failed` | `0.16s` |
-| `waiting` | `0.20s` |
-| `review` | `0.24s` |
-| `waving` | `0.26s` |
-| その他のフォールバック状態 | `0.28s` |
+| `failed` | `0.30s` |
+| `waiting` | `0.34s` |
+| `review` | `0.38s` |
+| `waving` | `0.42s` |
+| その他のフォールバック状態 | `0.46s` |

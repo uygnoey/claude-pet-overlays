@@ -38,7 +38,7 @@ bash scripts/notify.sh stop
 bash scripts/notify.sh ask
 ```
 
-Haz clic en cualquier lugar, pulsa cualquier tecla o espera a que se agote el tiempo para cerrar la superposición.
+Haz clic en cualquier lugar o pulsa cualquier tecla para cerrar la superposición.
 
 ## Configuración básica
 

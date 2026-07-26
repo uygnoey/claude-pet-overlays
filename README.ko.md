@@ -38,7 +38,7 @@ bash scripts/notify.sh stop
 bash scripts/notify.sh ask
 ```
 
-아무 곳이나 클릭하거나, 아무 키나 누르거나, 타임아웃까지 기다리면 오버레이가 닫힙니다.
+아무 곳이나 클릭하거나 아무 키나 누르면 오버레이가 닫힙니다.
 
 ## 기본 설정
 
